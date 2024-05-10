@@ -2,7 +2,7 @@
 
 Templates for Github Actions workflows I have used for Continuous Testing and Integration can be found in the `.github/workflows` directory.
 
-## Run Unit Tests 
+## Run Unit Tests and Code Coverage
 
 This workflow has the following jobs:
 - run unit tests using `pytest`
@@ -19,7 +19,23 @@ If using this template, you will need to perform the following steps:
   -  update the `GIST_ID` and `filename` to match the gist you created
 - In the [README.md](README.md):
   - update the code coverage badge URL to contain the url to the gist you created
+
 Useful links:
 - [Github Action - Dynamic Badges](https://github.com/marketplace/actions/dynamic-badges)
 
+## Publish Docker Image
 
+This workflow has the following jobs:
+- build the docker image
+- publish the docker image to the Github Container Registry and Docker Hub
+
+If using this template, you will need to perform the following steps:
+- In [dockerhub.com](https://hub.docker.com):
+  - create a token with read and write access to your repositories
+- In [github.com](https://github.com):
+  - add a secret `DOCKERHUB_USERNAME` with your Docker Hub username
+  - add a secret `DOCKERHUB_TOKEN` with your Docker Hub token
+- In the [workflow file](.github/workflows/publish_docker_image.yml):
+  - update the `image_name` to match the name of your image
+  - update the `dockerfile` to match the name of your Dockerfile
+  - validate the tags being used

@@ -9,4 +9,4 @@ RUN apt install nano -y
 
 # Install common python packages for development
 RUN pip install --upgrade pip
-RUN pip install black pytest coverage poetry 
+RUN pip install black pytest coverage poetry pylint pre-commit
