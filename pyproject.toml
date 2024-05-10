@@ -17,14 +17,6 @@ pytest = "^8.2.0"
 black = "^24.4.2"
 coverage = "^7.5.0"
 
-[project.optional-dependencies]
-# Dev dependencies.
-dev = [
-    pytest = "^8.2.0"
-    black = "^24.4.2"
-    coverage = "^7.5.0"
-]
-
 [tool.pytest.ini_options]
 minversion = "6.0"
 addopts = "-ra -q"

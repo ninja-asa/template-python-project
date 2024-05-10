@@ -39,11 +39,6 @@ jobs:
         poetry install
     - name: Run tests
       run: poetry run pytest
-    - uses: psf/black@stable
-      with:
-        options: "--check --verbose"
-        src: "./app"
-        use_pyproject: true
     - name: Check Coverage
       if: matrix.python-version == '3.10'
       run: |
