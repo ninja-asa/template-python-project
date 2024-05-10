@@ -51,9 +51,10 @@ jobs:
           images: | 
             ninjaasa/template-python-project
             ghcr.io/${{ github.repository }}
-            # tag image to be latest if pushing to main branch, dev if pushing to dev branch
+            # tag image to be latest if pushing to main branch, dev if pushing to dev branch.
+            # also tag combined with run_id to ensure unique tag
           tags: |
-            type=raw,value=${{github.run_id}}
+            type=raw,value=${{ github.ref == 'refs/heads/main' && 'latest' || 'dev' }}_${{ github.run_id }}
             type=raw,value=${{ github.ref == 'refs/heads/main' && 'latest' || 'dev' }}   
           labels: |
             org.label-schema.build-date=${{ steps.date.outputs.date}}
