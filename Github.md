@@ -17,7 +17,8 @@ If using this template, you will need to perform the following steps:
   - add `Read and Write` permissions under the repository settings, `Actions` section, to the `GITHUB_TOKEN` secret (allows publishing the coverage report in the PR)
 - In the [workflow file](.github/workflows/run_tests.yml):
   -  update the `GIST_ID` and `filename` to match the gist you created
-
+- In the [README.md](README.md):
+  - update the code coverage badge URL to contain the url to the gist you created
 Useful links:
 - [Github Action - Dynamic Badges](https://github.com/marketplace/actions/dynamic-badges)
 
