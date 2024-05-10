@@ -2,13 +2,17 @@ name: Run Tests
 
 on:
   pull_request:
+    # Run when PR is submitted to main branch
     branches: [ main ]
   push:
     branches:
+    # Run when code is pushed to main branch
     - main    
   schedule:
+    # Run every weekday at 2am
   - cron: "0 2 * * 1-5"  
   workflow_dispatch:
+    # Run when manually triggered
 
 permissions:
   actions: read
