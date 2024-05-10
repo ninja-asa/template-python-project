@@ -7,10 +7,10 @@ on:
   push:
     branches:
     # Run when code is pushed to main branch
-    - main    
+    - main
   schedule:
     # Run every weekday at 2am
-  - cron: "0 2 * * 1-5"  
+  - cron: "0 2 * * 1-5"
   workflow_dispatch:
     # Run when manually triggered
 
@@ -18,7 +18,7 @@ permissions:
   actions: read
   contents: read
   pull-requests: write
-  
+
 jobs:
   test:
     name: Unit Tests and Coverage
@@ -39,10 +39,14 @@ jobs:
         poetry install
     - name: Run tests
       run: poetry run pytest
-
+    - uses: psf/black@stable
+      with:
+        options: "--check --verbose"
+        src: "./app"
+        use_pyproject: true
     - name: Check Coverage
       if: matrix.python-version == '3.10'
-      run: | 
+      run: |
         poetry run coverage run -m pytest
         poetry run coverage xml
         echo "COVERAGE_PERCENT=$(poetry run coverage report --format=total | awk '{print $NF}' | tr -d '%')" >> $GITHUB_ENV
@@ -53,12 +57,12 @@ jobs:
       if: github.event_name == 'pull_request' && matrix.python-version == '3.10'
       with:
         # local path to a coverage xml file like the output of pytest --cov
-        coverageFile: "coverage.xml" 
+        coverageFile: "coverage.xml"
         # github token
         token: ${{ secrets.GITHUB_TOKEN }}
         # the coverage threshold for average over all files [0,1]
         thresholdAll: 0.7
-      
+
     - name: Dynamic Badges
       if: matrix.python-version == '3.10'
       uses: Schneegans/dynamic-badges-action@v1.7.0
@@ -77,4 +81,3 @@ jobs:
         maxColorRange: 100
         minColorRange: 0
         forceUpdate: true
-                      
