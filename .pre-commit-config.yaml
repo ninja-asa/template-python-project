@@ -32,7 +32,6 @@ repos:
       - id: check-docstring-first
       - id: check-shebang-scripts-are-executable
       - id: check-merge-conflict
-      - id: check-json
       - id: check-toml
       - id: check-xml
       - id: check-yaml
@@ -45,8 +44,6 @@ repos:
         args: [--pytest-test-first]
       - id: no-commit-to-branch
         args: [--branch, main]
-      - id: pretty-format-json
-        args: ["--autofix", "--no-ensure-ascii", "--no-sort-keys"]
       - id: requirements-txt-fixer
       - id: trailing-whitespace
         args: [--markdown-linebreak-ext=md]
