@@ -2,6 +2,13 @@ name: Template for Docker Image Push to Docker Hub
 on:
   push:
     branches: [ "main", "dev"]
+    paths:
+      - 'Dockerfile'
+      - 'app/**'
+      - 'tests/**'
+      - 'pyproject.toml'
+      - '.github/workflows/publish-docker-image.yml'
+
   workflow_dispatch: # allow user to specify which
     inputs:
       environment:
