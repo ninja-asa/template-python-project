@@ -9,7 +9,10 @@ on:
         required: true
         default: 'dev' # default value if not provided
 
-
+permissions:
+  contents: read
+  packages: write
+  
 jobs:
   push_to_registry:
     name: Push Docker Image to Docker Hub
