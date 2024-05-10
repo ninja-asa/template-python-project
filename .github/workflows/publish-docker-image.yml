@@ -1,0 +1,71 @@
+name: Template for Docker Image Push to Docker Hub
+on:
+  push:
+    branches: [ "main", "dev"]
+    paths:
+      - 'Dockerfile'
+      - 'app/**'
+      - 'tests/**'
+      - 'pyproject.toml'
+      - '.github/workflows/publish-docker-image.yml'
+
+  workflow_dispatch: # allow user to specify which
+    inputs:
+      environment:
+        description: 'Target environment'     
+        required: true
+        default: 'dev' # default value if not provided
+
+permissions:
+  contents: read
+  packages: write
+  
+jobs:
+  push_to_registry:
+    name: Push Docker Image to Docker Hub
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v4
+      - name: Build version
+        id: date
+        run: echo "{name}=date::$(date +'%Y-%m-%dT%H:%M:%SZ')" >> $GITHUB_OUTPUT
+        
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          
+      - name: Log in to the Container registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v5.5.1
+        with:
+          images: | 
+            ninjaasa/template-python-project
+            ghcr.io/${{ github.repository }}
+            # tag image to be latest if pushing to main branch, dev if pushing to dev branch.
+            # also tag combined with run_id to ensure unique tag
+          tags: |
+            type=raw,value=${{ github.ref == 'refs/heads/main' && 'latest' || 'dev' }}_${{ github.run_id }}
+            type=raw,value=${{ github.ref == 'refs/heads/main' && 'latest' || 'dev' }}   
+          labels: |
+            org.label-schema.build-date=${{ steps.date.outputs.date}}
+            org.opencontainers.image.created=${{ steps.date.outputs.date}}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5.3.0
+        with:
+          context: .
+          file: Dockerfile
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}          
+              
