@@ -25,14 +25,17 @@ To start developing in any repository using this template:
 
 > During this setup, suggested extensions will be installed in the container, and the Python environment will be created, with `pytest`, `coverage`, `poetry` and `black` installed.
 
-## Testing
+### Configuration
 
+- [Github Action](Github.md): details needed configuration for the GitHub Actions workflows.
 
-### Github Actions
-Templates for Github Actions workflows I have used for Continuous Testing and Integration can be found in the `.github/workflows` directory.
+## Contents
 
-More info in the [Github Actions](Github.md) file.
-
+- `.github/workflows/`: contains the GitHub Actions workflows.
+- `.vscode/`: contains the settings for Visual Studio Code.
+- `.devcontainer/`: contains the settings for the development container and the development Dockerfile.
+- `app/`: contains the source code of the project.
+- `tests/`: contains the tests of the project.
 
 ## Useful links:
 - support status of `python` in the [Python Developer's Guide](https://devguide.python.org/versions/#versions).
