@@ -7,5 +7,6 @@ RUN apt-get update -y && apt-get install --no-install-recommends -y \
 
 RUN apt install nano -y
 
-# Installing the requirements.txt
+# Install common python packages for development
 RUN pip install --upgrade pip
+RUN pip install black pytest coverage poetry 
