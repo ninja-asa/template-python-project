@@ -6,6 +6,14 @@
 
 This is intended to be a repository to serve as a template to my own, and others projects using Python.
 
+## Contents
+
+- `.github/workflows/`: contains the GitHub Actions workflows.
+- `.vscode/`: contains the settings for Visual Studio Code.
+- `.devcontainer/`: contains the settings for the development container and the development Dockerfile.
+- `app/`: contains the source code of the project.
+- `tests/`: contains the tests of the project.
+
 ## Getting Started
 
 This template relies on using Docker for development and using Visual Studio Code as the IDE.
@@ -29,15 +37,37 @@ To start developing in any repository using this template:
 
 - [Github Action](Github.md): details needed configuration for the GitHub Actions workflows.
 
-## Contents
-
-- `.github/workflows/`: contains the GitHub Actions workflows.
-- `.vscode/`: contains the settings for Visual Studio Code.
-- `.devcontainer/`: contains the settings for the development container and the development Dockerfile.
-- `app/`: contains the source code of the project.
-- `tests/`: contains the tests of the project.
-
 ## Useful links:
 - support status of `python` in the [Python Developer's Guide](https://devguide.python.org/versions/#versions).
 - vulnerabilities in the [Mailing List by Python Software Foundation CVE Numbering Authority and Python Security Response Team](https://mail.python.org/archives/list/security-announce@python.org/latest).
 - Microsoft Package Template for Python [here](https://github.com/microsoft/python-package-template/blob/main/pyproject.toml).
+
+## Common Issues
+### Dev Container Cannot Start - Issue with communicating with Docker Enginer
+Repro steps:
+- Ensure docker enginer is running
+- Have the required base docker image stored cached 
+- Attempt to `Open in Container` or `Rebuild and Open in Container` in repository
+
+Issue:
+- Visual Studio Code gets stuck
+- Dev Containers extension Logs we can see an issue of Visual Studio Code server communicating with docker engine: whenever a docker command is called, an error with the API is reported
+
+Attempts:
+- Restart Visual Studio Code
+- Restarted Docker
+- Restart computer
+  
+Solution:
+- Updated Docker
+
+### Dev Container Cannot Start - Network issue
+Repro steps:
+- Ensure docker enginer is running
+- Attempt to `Open in Container` or `Rebuild and Open in Container` in repository
+
+Issue:
+- Dev container cannot start building
+ 
+Solution:
+- Have no internet connectivity to get docker image from remote registry
