@@ -1,5 +1,5 @@
 # Specifying the base image
-FROM python:3.12-bullseye
+FROM python:3.13-bullseye
 
 # Install system dependencies and pip
 RUN apt-get update -y && apt-get install --no-install-recommends -y \
